@@ -682,15 +682,56 @@
       <p>We provide quality services that help businesses grow and succeed in the digital world.</p>
     </div>
 
-    <div class="footer-section links">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="service.html">Services</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="contact.html" target="_blank">Contact</a></li>
-      </ul>
-    </div>
+   <!-- HTML Code (Aapka code, thoda rounded buttons ke liye align kiya hai) -->
+<div class="footer-section links">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="service.html">Services</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="contact.html" target="_blank">Contact</a></li>
+  </ul>
+</div>
+
+<!-- CSS Code (Ise apni style sheet me daalein) -->
+<style>
+  /* List ki default styling hatane ke liye aur unhe ek line me lane ke liye */
+  .footer-section.links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* Buttons ke beech ka gap */
+  }
+
+  /* Links ko sundar buttons me badalne ke liye */
+  .footer-section.links ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff; /* Text ka color (White) */
+    background-color: #4f46e5; /* Button ka background color (Indigo/Blue) */
+    padding: 10px 20px; /* Button ke andar ki spacing (Top/Bottom Left/Right) */
+    border-radius: 8px; /* Button ke corners ko thoda round karne ke liye */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Halka shadow effect */
+    transition: all 0.3s ease; /* Hover effect ko smooth banane ke liye */
+  }
+
+  /* Jab mouse button ke upar jaye (Hover Effect) */
+  .footer-section.links ul li a:hover {
+    background-color: #4338ca; /* Darker Blue color hover par */
+    transform: translateY(-2px); /* Button thoda upar uthega */
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3); /* Glow shadow effect */
+  }
+
+  /* Jab button par click karein */
+  .footer-section.links ul li a:active {
+    transform: translateY(0); /* Button wapas apni jagah aa jayega */
+  }
+</style>
 
     <div class="footer-section contact">
       <h4>Contact Us</h4>
