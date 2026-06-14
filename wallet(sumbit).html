@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Wallet | Private Dashboard</title>
+  <style>
+    body {
+      background: radial-gradient(circle at top, #101024, #050510);
+      color: #f0f0ff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #8aa8ff, #ff89c6);
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      text-align: center;
+      color: #8aa8ff;
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      color: #bbb;
+    }
+
+    .msg {
+      background: #15152a;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(138,168,255,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .msg:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(255,137,198,0.4);
+    }
+
+    .msg p { margin: 6px 0; }
+
+    .btn-clear {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #ff89c6, #8aa8ff);
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-clear:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>🪙 My Private Wallet</header>
+
+<div class="container">
+  <h2>Stored Messages</h2>
+  <div class="stats">
+    Total Submissions: <span id="totalCount">0</span>
+  </div>
+
+  <div id="messages"></div>
+
+  <button class="btn-clear" onclick="clearWallet()">🧹 Clear All</button>
+</div>
+
+<footer>© 2025 | Only Visible to You 🔒</footer>
+
+<script>
+  // Optional password prompt
+  const pass = "12345"; // <-- Change this password
+  const entered = prompt("Enter Wallet Password:");
+  if (entered !== pass) {
+    document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:100px;'>❌ Access Denied</h1>";
+    throw new Error("Access Denied");
+  }
+
+  const data = JSON.parse(localStorage.getItem("messages") || "[]");
+  const box = document.getElementById("messages");
+  document.getElementById("totalCount").innerText = data.length;
+
+  if (data.length === 0) {
+    box.innerHTML = "<p style='text-align:center;color:gray;'>No messages yet.</p>";
+  } else {
+    data.forEach(msg => {
+      box.innerHTML += `
+        <div class="msg">
+          <p><b>👤 Name:</b> ${msg.name}</p>
+          <p><b>📧 Email:</b> ${msg.email}</p>
+          <p><b>💬 Message:</b> ${msg.message}</p>
+          <p><i>🕒 ${msg.time}</i></p>
+        </div>
+      `;
+    });
+  }
+
+  function clearWallet() {
+    if (confirm("Are you sure you want to clear all messages?")) {
+      localStorage.removeItem("messages");
+      location.reload();
+    }
+  }
+</script>
+
+</body>
+</html>

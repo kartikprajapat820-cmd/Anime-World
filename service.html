@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime World | Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #1b1b2f;
+      color: #fff;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      background-color: #162447;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #e43f5a;
+    }
+
+    header p#greeting {
+      font-size: 1.2em;
+      color: #f8f8f8;
+      margin-top: 8px;
+    }
+
+    .toggle-btn {
+      margin: 10px 5px 0 5px;
+      background: #e43f5a;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .toggle-btn:hover {
+      animation: pulse 0.6s ease infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.05);
+      }
+    }
+
+    .services {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* UNIQUE "PORTAL SUMMON" ANIMATION */
+    @keyframes portalSummon {
+      0% {
+        transform: scale(0) rotateY(0deg);
+        border-radius: 50%;
+        opacity: 0;
+        box-shadow: 0 0 0px #e43f5a;
+      }
+      50% {
+        transform: scale(1.2) rotateY(180deg);
+        border-radius: 50%;
+        opacity: 0.8;
+        box-shadow: 0 0 30px #e43f5a, 0 0 60px #e43f5a;
+      }
+      100% {
+        transform: scale(1) rotateY(360deg);
+        border-radius: 10px;
+        opacity: 1;
+        box-shadow: none;
+      }
+    }
+
+    .service-card {
+      background-color: #1f4068;
+      border-left: 5px solid #e43f5a;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      opacity: 0;
+      transform: scale(0);
+      animation: portalSummon 1s ease-out forwards;
+    }
+
+    .service-card:nth-child(1) { animation-delay: 0.2s; }
+    .service-card:nth-child(2) { animation-delay: 0.4s; }
+    .service-card:nth-child(3) { animation-delay: 0.6s; }
+    .service-card:nth-child(4) { animation-delay: 0.8s; }
+
+    .service-card h2 {
+      color: #e43f5a;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .service-card p {
+      color: #f1f1f1;
+    }
+
+    footer {
+      background-color: #162447;
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      margin-top: 40px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #1f4068;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .modal-content h3 {
+      color: #e43f5a;
+    }
+
+    .modal-content button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #e43f5a;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .dark-mode {
+      background-color: #f8f8f8 !important;
+      color: #222 !important;
+    }
+
+    .dark-mode header,
+    .dark-mode footer,
+    .dark-mode .service-card {
+      background-color: #fff !important;
+      color: #222 !important;
+    }
+
+    .dark-mode .service-card h2 {
+      color: #e43f5a !important;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Anime World</h1>
+    <p id="greeting">Welcome!</p>
+    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button class="toggle-btn" onclick="openModal()">Join Newsletter</button>
+  </header>
+
+  <section class="services">
+    <div class="service-card">
+      <h2 onclick="toggleService(this)">🎥 Anime Streaming</h2>
+      <p class="service-description">Watch your favorite anime in HD quality with subtitles and dubs. Latest episodes updated daily!</p>
+    </div>
+
+    <div class="service-card">
+      <h2 onclick="toggleService(this)">🛍 Anime Merchandise</h2>
+      <p class="service-description">Get exclusive anime t-shirts, figures, posters, and more from your favorite shows.</p>
+    </div>
+
+    <div class="service-card">
+      <h2 onclick="toggleService(this)">🤖 Personalized Recommendations</h2>
+      <p class="service-description">Get anime suggestions based on your taste, mood, and watch history using AI-powered tools.</p>
+    </div>
+
+    <div class="service-card">
+      <h2 onclick="toggleService(this)">🎉 Anime Events & Meetups</h2>
+      <p class="service-description">Join local anime events, fan meetups, and cosplay conventions happening near you.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Anime World. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="newsletterModal">
+    <div class="modal-content">
+      <h3>Subscribe to Our Newsletter!</h3>
+      <p>Get weekly updates on new anime, deals & events.</p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Dynamic Greeting
+    function setGreeting() {
+      const greeting = document.getElementById('greeting');
+      const hour = new Date().getHours();
+      let message = "Welcome!";
+
+      if (hour < 12) {
+        message = "Good Morning, Otaku!";
+      } else if (hour < 18) {
+        message = "Good Afternoon, Senpai!";
+      } else {
+        message = "Good Evening, Anime Lover!";
+      }
+
+      greeting.textContent = message;
+    }
+
+    // Toggle Description Show/Hide
+    function toggleService(element) {
+      const description = element.nextElementSibling;
+      description.classList.toggle("hidden");
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    // Modal Functions
+    function openModal() {
+      document.getElementById("newsletterModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("newsletterModal").style.display = "none";
+    }
+
+    // Initialize greeting on load
+    window.onload = setGreeting;
+  </script>
+
+</body>
+</html>

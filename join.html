@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anime Join</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      background-image: url('file:///C:/Users/hp/Desktop/new%20website/poster/wp7631899-vageto-wallpapers.jpg');
+    }
+
+    .join-section {
+      background: url('https://assets.nflxext.com/ffe/siteui/vlv3/8610933f-7aa6-4236-8319-b4dfc36dd9fa/bc5c5d13-c5e1-4e26-b60e-d65ce42928de/PK-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .join-section h1 {
+      font-size: 3.5rem;
+      max-width: 900px;
+      margin-bottom: 25px;
+    }
+
+    .join-section p {
+      font-size: 1.5rem;
+      margin-bottom: 35px;
+    }
+
+    .join-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .join-form input[type="email"] {
+      padding: 18px;
+      font-size: 20px;
+      width: 65%;
+      min-width: 280px;
+      border: none;
+      border-radius: 4px;
+       
+    }
+
+    .join-form button {
+      padding: 18px 30px;
+      font-size: 20px;
+      background-color: #e50914;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .join-form button:hover {
+      background-color: #f40612;
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 600px) {
+      .join-form input[type="email"],
+      .join-form button {
+        width: 100%;
+        font-size: 18px;
+        padding: 16px;
+      }
+    }
+    .image-container {
+      position: relative;
+      display: inline-block;
+    }
+    .numbering {
+      position: absolute;
+      top: 150px; /* Image ke upar kitna space chahiye */
+      left: 20px; /* Image ke left side se kitna space chahiye */
+      font-size: 80px; /* Numbering ka size */
+      color: black; /* Numbering ka color */
+      font-weight: bold;
+      padding: 5px;
+    }
+     .image-container {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .image-container img {
+      width: 300px; /* Image ka size */
+      height: 450px;
+      object-fit: cover; /* Image ko container mein fit karega */
+    }
+
+   body {
+  font-family: sans-serif;
+  background: #111;
+  color: white;
+  margin: 0;
+  padding: 50px;
+}
+
+.slider-container {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+.slider::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.item {
+  min-width: 250px;
+  height: 350px;
+  width: 300px;
+  background: none;
+  margin-right: 10px;
+  line-height: 120px;
+  text-align: center;
+  border-radius: 30px;
+  flex-shrink: 0;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  font-size: 30px;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1;
+}
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.item:hover img {
+  transform: scale(1.1); /* 10% बड़ा हो जाएगा */
+}
+
+.netflix-clip {
+  background: red;
+  height: 300px;
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+  clip-path: ellipse(100% 8% at 50% 100%);
+}
+
+/* Styles for More Reasons to Join Section */
+.reasons-container {
+  padding: 60px 20px;
+  background-color: #14161e;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  transform: scale(1.1); /* 10% बड़ा हो जाएगा */
+}
+
+.reasons-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ff4757;
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.reason-card {
+  background: linear-gradient(150deg, #120b0b, #f406e4 , #474dff); /* Gradient added */
+  border-radius: 25px;
+  padding: 50px;
+  width: 300px;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  color: white; /* Text color for visibility */
+}
+
+
+.reason-card:hover {
+  transform: translateY(-5px);
+}
+
+.reason-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.reason-card p {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.logo {
+  width: 80px;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+  background-color: transparent;
+  background-image: transparent;
+    mix-blend-mode: multiply;
+
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+   .accordion {
+  width: 90%;
+  max-width: 600px;
+  margin: 30px auto;
+  font-family: sans-serif;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #ccc;
+}
+
+.accordion-button {
+  width: 100%;
+  background-color: #111;
+  color: #fff;
+  padding: 20px;
+  text-align: left;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.accordion-button:hover {
+  background-color: #222;
+}
+
+.accordion-content {
+  background-color: #222;
+  color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding: 0 20px;
+}
+
+.accordion-content p {
+  padding: 15px 0;
+  margin: 0;
+}
+
+.accordion-button .icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+.blend-bg {
+  width: max;
+  height: max;
+  background-image: url('file:///C:/Users/hp/Desktop/new%20website/poster/wp2551882-wallpaper-one-piece.jpg'),
+   url('file:///C:/Users/hp/Desktop/new%20website/poster/wp4749523-erwin-smith-wallpapers.jpg');
+  background-position: center center, center center;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-blend-mode: multiply;  /* ya overlay, screen, etc */
+}
+
+    </style>
+  <script>
+  // Ensure DOM is loaded before attaching events
+window.addEventListener('DOMContentLoaded', () => {
+  const slider = document.getElementById('slider');
+  const leftArrow = document.querySelector('.left-arrow');
+  const rightArrow = document.querySelector('.right-arrow');
+
+  leftArrow.addEventListener('click', () => {
+    slider.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+
+  rightArrow.addEventListener('click', () => {
+    slider.scrollBy({ left: 300, behavior: 'smooth' });
+  });
+});
+
+const headers = document.querySelectorAll('.accordion-content');
+
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    // For Question//
+   function toggleAccordion(button) {
+  const content = button.nextElementSibling;
+  const icon = button.querySelector(".icon");
+
+  if (content.style.maxHeight) {
+    content.style.maxHeight = null;
+    icon.textContent = "+";
+  } else {
+    content.style.maxHeight = content.scrollHeight + "px";
+    icon.textContent = "×";
+  } 
+}
+
+</script>
+</head>
+<body>
+<div class="blend-bg"></div>
+
+  <div class="join-section">
+    <h1>Unlimited movies, TV shows, and more.</h1>
+    <br><h2>Starts at ₹149. Cancel at any time.</h2><br>
+   <br><h4>Ready to watch? Enter your email to create or restart your membership.</h4><br>
+    
+    <form class="join-form" action="https://example.com/join" method="GET" target="_blank">
+      <input type="email" name="email" placeholder="Email address" required>
+      <button type="submit">Get Started &gt;</button>
+    </form>
+  </div>
+<div class="netflix-clip">
+  <h1>Netflix Style</h1>
+</div>
+
+
+<section style="background-color:#14161e; color:#ffffff; padding:50px 20px; text-align:center;">
+  <h2 style="font-size:2.5em; margin-bottom:20px; color:#ff4757;"> Trending Anime</h2>
+
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix Style Slider</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="slider-container">
+    <button class="left-arrow">&#8249;</button>
+    
+   <div class="slider" id="slider">
+  <div class="item">
+  <img 
+    src="file:///C:/Users/hp/Desktop/new%20website/poster/wp14984958-gojo-fight-wallpapers.webp" 
+    alt="Movie 1" 
+    alt="Image 5" 
+    width="300" 
+    style="max-width:250px; height:350px; width: 250px; border-radius:20px; margin-bottom:30px; margin: 0 20px;" 
+  />
+</div>
+<div class="numbering">1</div>
+
+  <div class="item">
+  <img 
+    src="file:///C:/Users/hp/Desktop/new%20website/poster/wp7631899-vageto-wallpapers.jpg" 
+    alt="Movie 2" 
+    alt="Image 2" 
+    width="300" 
+    style="max-width:250px; height:350px; width: 250px; border-radius:20px; margin-bottom:30px; margin: 0 20px;" 
+  />
+</div>
+<div class="numbering">2</div>
+
+  <div class="item">
+  <img 
+    src="file:///C:/Users/hp/Desktop/new%20website/poster/wp2551882-wallpaper-one-piece.jpg" 
+    alt="Movie 3" 
+    alt="Image 3" 
+    width="300" 
+    style="max-width:250px; height:350px; width: 250px; border-radius:20px; margin-bottom:30px; margin: 0 20px;" 
+  />
+</div>
+<div class="numbering">3</div>
+
+  <div class="item">
+  <img 
+    src="file:///C:/Users/hp/Desktop/new%20website/poster/pUTZ2kr-light-yagami-wallpaper.jpg" 
+    alt="Movie 4" 
+    alt="Image 4" 
+    width="300" 
+    style="max-width:250px; height:350px; width: 250px; border-radius:20px; margin-bottom:30px; margin: 0 20px;" 
+  />
+</div>
+<div class="numbering">4</div>
+
+  <div class="item">
+  <img 
+    src="file:///C:/Users/hp/Desktop/new%20website/poster/wp11696453-isagi-yoichi-wallpapers.jpg" 
+    alt="Movie 5" 
+    alt="Image 5" 
+    width="300" 
+    style="max-width:250px; height:350px; width: 250px; border-radius:20px; margin-bottom:30px; margin: 0 20px;" 
+  />
+</div>
+<div class="numbering">5</div>
+</div> 
+    <button class="right-arrow">&#8250;</button>
+  </div>
+  <script src="script.js"></script>
+
+<!-- More Reasons to Join Section -->
+<section class="reasons-container">
+  <h2>More Reasons to Join</h2>
+  <div class="reasons-grid">
+    <div class="reason-card">
+      <h3>✅ Enjoy on your TV</h3>
+      <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more..</p>
+      <div><img src="file:///C:/Users/hp/Desktop/new%20website/poster/tv.png.jfif" class="logo" alt="Logo"></div>
+
+    </div>
+    <div class="reason-card">
+      <h3>📈 Download your shows to watch offline</h3>
+      <p>Save your favourites easily and always have something to watch.</p>
+      <div><img src="file:///C:/Users/hp/Desktop/new%20website/poster/down.png.png" class="logo" alt="Logo"></div>
+    
+    </div>
+    <div class="reason-card">
+      <h3>🧑‍🤝‍🧑 Watch everywhere</h3>
+      <p>Stream unlimited movies and TV shows on your phone, tablet, laptop and TV.</p>
+      <div><img src="file:///C:/Users/hp/Desktop/new%20website/poster/telescope.png.jfif" class="logo" alt="Logo"></div>
+
+    </div>
+    <div class="reason-card">
+      <h3>🎯Create profiles </h3>
+      <p>Send kids on adventures with their favourite characters  free with your membership.</p>
+      <div><img src="file:///C:/Users/hp/Desktop/new%20website/poster/profile.png.png" class="logo" alt="Logo"></div>
+
+    </div>
+  </div>
+</section>
+
+<div class="accordion">
+  <div class="accordion-item">
+    <button class="accordion-button" onclick="toggleAccordion(this)">
+      <span class="label">What Is Anime World?</span>
+      <span class="icon">+</span>
+    </button>
+    <div class="accordion-content">
+      <p>Anime World is a streaming service that offers a wide variety of award-winning TV shows, movies, anime,
+         documentaries and more – on thousands of internet-connected devices.
+You can watch as much as you want, whenever you want, without a single ad – all for one low monthly price. 
+There's always something new to discover, and new TV shows and movies are added every week!</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button class="accordion-button" onclick="toggleAccordion(this)">
+      <span class="label">How Much Does Anime Cost?</span>
+      <span class="icon">+</span>
+    </button>
+    <div class="accordion-content">
+      <p>Watch Anime world on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee.
+         Plans range from ₹149 to ₹649 a month. No extra costs, no contracts.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button class="accordion-button" onclick="toggleAccordion(this)">
+      <span class="label">Where Can I Watch?</span>
+      <span class="icon">+</span>
+    </button>
+    <div class="accordion-content">
+      <p>Watch anywhere, anytime. Sign in with your Anime account to watch instantly on the web at Anime World.com
+         from your personal computer or on any internet-connected device that offers the anime app, including smart TVs, 
+         smartphones, tablets, streaming media players and game consoles.
+You can also download your favourite shows with the iOS or Android app. Use downloads to watch while you're on the go and
+ without an internet connection. Take Netflix with you anywhere.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button class="accordion-button" onclick="toggleAccordion(this)">
+      <span class="label">How Do You Cancel?</span>
+      <span class="icon">+</span>
+    </button>
+    <div class="accordion-content">
+      <p>Anime world is flexible. There are no annoying contracts and no commitments. You can easily cancel your account online in two clicks. 
+        There are no cancellation fees – start or stop your account anytime.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button class="accordion-button" onclick="toggleAccordion(this)">
+      <span class="label">Is It Good for Kids and Others?</span>
+      <span class="icon">+</span>
+    </button>
+    <div class="accordion-content">
+      <p>The Anime Kids experience is included in your membership to give parents control while kids enjoy 
+        family-friendly TV shows and films in their own space.
+             Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids
+         can watch and block specific titles you don’t want kids to see..</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

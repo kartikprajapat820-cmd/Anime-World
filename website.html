@@ -1,0 +1,732 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Anime Web</title>
+  <meta name="description" content="A clean, responsive anime website template with search, filters, and a card grid — pure HTML, CSS, and JS in one file." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b12;
+      --panel: #121222;
+      --muted: #a0a4b8;
+      --text: #e7e7f2;
+      --brand: #8aa8ff;
+      --brand-2: #ff89c6;
+      --ok: #91ee98; /* inspired pastel */
+      --warn: #e5e186; /* inspired pastel */
+      --info: #a6c8d8; /* inspired pastel */
+      --accent: #8579ce; /* inspired pastel */
+      --danger: #e57d7d; /* inspired pastel */
+      --card: #15152a;
+      --ring: rgba(138,168,255,.55);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    .light {
+      --bg: #f7f7fb;
+      --panel: #ffffff;
+      --muted: #555b74;
+      --text: #0f1122;
+      --brand: #5b74ff;
+      --brand-2: #e44eb3;
+      --card: #ffffff;
+      --ring: rgba(91,116,255,.45);
+      --shadow: 0 12px 28px rgba(33, 42, 73, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(138,168,255,.12), transparent 60%),
+                  radial-gradient(1000px 600px at 110% 10%, rgba(228,78,179,.12), transparent 60%),
+                  var(--bg);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      gap: 12px; padding: 16px 0;
+    }
+    .logo {
+      font-family: Bangers, system-ui;
+      font-size: clamp(28px, 3.4vw, 42px);
+      letter-spacing: 1px; color: var(--text);
+      text-shadow: 0 0 20px rgba(138,168,255,.35), 0 0 28px rgba(228,78,179,.22);
+      display: inline-flex; align-items: baseline; gap: 8px;
+    }
+    .logo .badge {
+      padding: 2px 8px; font: 600 12px/1 Inter, system-ui; color: #0b0b12;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      border-radius: 999px; box-shadow: var(--shadow);
+    }
+
+    .searchbar {
+      display: flex; align-items: center; gap: 10px; justify-self: center;
+      width: min(680px, 98%);
+      background: var(--panel); border: 1px solid rgba(255,255,255,.08);
+      padding: 10px 12px; border-radius: 999px; box-shadow: var(--shadow);
+    }
+    .searchbar input {
+      flex: 1; background: transparent; border: 0; outline: none; color: var(--text);
+      font-size: 15px; padding: 8px;
+       width: 400px;        
+       height: 40px;          
+       padding: 10px 15px;    
+      font-size: 18px; 
+    }
+    .searchbar button {
+      border: 0; background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff; padding: 10px 14px; border-radius: 999px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 10px 20px rgba(138,168,255,.22);
+    }
+    .actions { justify-self: end; display: flex; gap: 10px; align-items: center; }
+    .iconbtn {
+      border: 1px solid rgba(255,255,255,.08); background: var(--panel); color: var(--text);
+      border-radius: 10px; padding: 10px 12px; box-shadow: var(--shadow); cursor: pointer;
+    }
+
+    /* Hero */
+    .hero { padding: 32px 0 8px; }
+    .hero h1 {
+      font-size: clamp(28px, 3.6vw, 44px);
+      margin: 0 0 8px 0;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero p { margin: 0; color: var(--muted); }
+
+    /* Filters */
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 4px; }
+    .chip { border: 1px solid rgba(255,255,255,.08); background: var(--panel); color: var(--text);
+      padding: 8px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; }
+    .chip.active { outline: 2px solid var(--ring); background: linear-gradient(135deg, color-mix(in srgb, var(--panel) 75%, var(--brand) 25%), color-mix(in srgb, var(--panel) 75%, var(--brand-2) 25%)); }
+
+    /* Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; margin: 20px 0 50px; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); overflow: hidden; position: relative; box-shadow: var(--shadow); }
+    .cover { aspect-ratio: 3/4; width: 100%; object-fit: cover; display: block; background: #0e0e18; }
+    .card .meta { padding: 12px; }
+    .title { font-weight: 700; margin: 0 0 6px; font-size: 16px; letter-spacing: .2px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); background: color-mix(in srgb, var(--panel) 85%, var(--brand) 15%); }
+
+    .rating { position: absolute; top: 10px; left: 10px; background: color-mix(in srgb, black 30%, var(--ok) 70%); color: #0b0f14; font-weight: 800; padding: 6px 8px; border-radius: 999px; font-size: 12px; box-shadow: var(--shadow); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer; border-radius: 12px; padding: 10px 12px; font-weight: 700; }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: white; }
+
+    .card-actions { display: flex; justify-content: space-between; padding: 12px; border-top: 1px solid rgba(255,255,255,.08); }
+
+    /* Modal */
+    dialog { border: none; border-radius: 18px; padding: 0; background: var(--panel); color: var(--text); box-shadow: 0 50px 80px rgba(0,0,0,.5); width: min(920px, 92vw); }
+    dialog::backdrop { backdrop-filter: blur(6px); background: rgba(10,10,18,.55); }
+    .modal { display: grid; grid-template-columns: 300px 1fr; gap: 0; }
+    .modal .cover { height: 100%; }
+    .modal-body { padding: 18px 18px 20px; }
+    .modal-body h3 { margin: 0 0 6px; font-size: 26px; }
+    .modal-body p { margin: 8px 0 14px; color: var(--muted); line-height: 1.65; }
+    .modal-body .row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* Footer */
+    footer { border-top: 1px solid rgba(255,255,255,.08); padding: 18px 0 40px; color: var(--muted); font-size: 14px; }
+
+    /* Extras */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .empty { text-align: center; color: var(--muted); padding: 30px; border: 1px dashed rgba(255,255,255,.15); border-radius: 14px; }
+
+    /* Hover/Focus */
+    .card:hover { transform: translateY(-2px); transition: transform .2s ease; }
+    .chip:focus-visible, .iconbtn:focus-visible, .btn:focus-visible, .searchbar input:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+    @media (max-width: 760px) {
+      .modal { grid-template-columns: 1fr; }
+      .nav { grid-template-columns: 1fr auto auto; }
+      .searchbar { grid-column: 1 / -1; order: 3; margin-top: 8px; }
+    }
+    footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 40px 0 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin: 20px 0;
+}
+
+.footer-section h4, .footer-section h3 {
+  margin-bottom: 15px;
+  color: #f2f2f2;
+}
+
+.footer-section p, .footer-section ul {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.social-icons a img {
+  width: 24px;
+  margin-right: 10px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  font-size: 13px;
+  color: #aaa;
+}
+.footer-section {
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #fff;
+  position: relative;
+}
+
+.button-wrapper {
+  text-align: center; /* ✅ Aligns the button to the right */
+  margin-top: 10px;
+}
+
+
+.multi-color-thankyou {
+  background-color: #f2f2f2;
+  padding: 40px 20px;
+  text-align: center;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+  border-top: 2px solid #ff5722;
+}
+
+.multi-color-thankyou h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ff5722;
+}
+
+.multi-color-thankyou p {
+  font-size: 16px;
+  margin: 0;
+}
+.multi-color-thankyou span:nth-child(1) { color: #ff4b1f; }  /* T - red-orange */
+.multi-color-thankyou span:nth-child(2) { color: #ff9068; }  /* h - light orange */
+.multi-color-thankyou span:nth-child(3) { color: #f9d423; }  /* a - yellow */
+.multi-color-thankyou span:nth-child(4) { color: #a1c349; }  /* n - green */
+.multi-color-thankyou span:nth-child(5) { color: #00b09b; }  /* k - teal */
+.multi-color-thankyou span:nth-child(6) { color: #005aa7; }  /* Y - blue */
+.multi-color-thankyou span:nth-child(7) { color: #2c3e50; }  /* o - dark blue */
+.multi-color-thankyou span:nth-child(8) { color: #6a11cb; }  /* u - purple */
+.multi-color-thankyou span:nth-child(9) {color:  rgb(255, 152, 231);    }
+
+ #headline {
+      animation: textColorChange 2s infinite linear;
+    }
+
+    @keyframes textColorChange {
+      0%   { color: red; }
+      10%  { color: orange; }
+      20%  { color: green; }
+      30%  { color: blue; }
+      40% { color: white; }
+      50% { color:#00b09b}
+      60% { color:violet}
+      70% { color:rgb(215, 26, 174)}
+      80% { color:yellow}
+      90% { color:grey}
+      100% { color:rgb(159, 36, 36)}
+    }
+    .notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #e43f5a;
+  color: white;
+  padding: 24px 36px;       /* padding badhaya */
+  border-radius: 12px;      /* thoda zyada rounded corners */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);  /* shadow thoda strong */
+  display: flex;
+  align-items: center;
+  gap: 16px;                /* gap bada kiya */
+  z-index: 999;
+  font-size: 1.2rem;        /* font size bada kiya */
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideDown 0.5s ease-out forwards;
+  min-width: 320px;         /* minimum width set kiya */
+  max-width: 420px;         /* max width bhi diya */
+}
+.notification .close-btn {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 28px;       /* bada cross */
+  font-weight: bold;
+  user-select: none;     /* text select na ho */
+}
+.notification .close-btn:hover {
+  color: #fff5f8;
+  transform: scale(1.2);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#" aria-label="Anime Home">
+        <span>Anime</span>
+        <span class="badge"> ANIME</span>
+      </a>
+      <form class="searchbar" role="search" aria-label="Search anime web" onsubmit="event.preventDefault(); search();">
+        <input id="q" type="search" placeholder="Search anime, e.g., gojo,goku,vegeta" autocomplete="off" />
+        <button type="submit" title="Search">Search</button>
+      </form>
+      <div class="actions">
+        <button class="iconbtn" id="themeBtn" aria-pressed="false" title="Toggle theme">🌓</button>
+        <button class="iconbtn" id="resetBtn" title="Reset filters">↺</button>
+      </div>
+    </div>
+  </header>
+
+   <main class="container">
+    <section class="hero" aria-labelledby="headline">
+      <h1 id="headline">Best Top Anime</h1>
+      <p>Search, filter by genre, and open details — all in a single lightweight file. Swap images with your own posters.</p>
+      <div class="filters" id="filters" role="group" aria-label="Filter by genre"></div>
+    </section>
+  </main>
+
+    <section aria-live="polite">
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty" hidden>No matches found. Try a different search or clear filters.</div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>
+      <h2>Built with ❤️ for anime fans. Fonts via Google Fonts (Bangers & Inter). Replace sample data or wire it up to a real API later.
+      “Thank you for visiting! Stay tuned for more amazing content. Follow us on social media and never miss an update!”    
+    </h2>
+    </small>
+  </footer>
+  <div id="popupNotification" class="notification">
+  <p>🎉 New anime episodes are live! Don’t miss out!</p>
+  <span class="close-btn" onclick="closeNotification()">×</span>
+</div>
+
+
+  <!-- Details Modal -->
+  <dialog id="details">
+    <div class="modal">
+      <img id="modalCover" class="cover" alt="Cover" src="" />
+      <div class="modal-body">
+        <button class="iconbtn" style="float:right;margin:10px" onclick="closeDetails()" aria-label="Close">✕</button>
+        <h3 id="modalTitle">Title</h3>
+        <div class="row" style="margin-bottom:8px">
+          <span class="tag" id="modalYear">—</span>
+          <span class="tag" id="modalRating">⭐ —</span>
+          <span class="tag" id="modalType">—</span>
+        </div>
+        <p id="modalSynopsis">Synopsis…</p>
+        <div class="row" id="modalGenres"></div>
+        <div style="margin-top:16px">
+          <a id="modalLink" class="btn primary" href="#" target="_blank" rel="noreferrer noopener">More info ↗</a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    function closeNotification() {
+  const popup = document.getElementById('popupNotification');
+  popup.style.display = 'none';
+}
+
+    window.onload = function () {
+  setGreeting(); // already in your code
+
+  // Show notification after 2 seconds
+  setTimeout(() => {
+    const popup = document.getElementById('popupNotification');
+    popup.style.display = 'flex';
+  }, 2000);
+};
+
+    // --- Sample Data (swap with your own or hook to an API like Jikan) ---
+    const ANIME = [
+  {
+    id: 1,
+    title: "Gojo Satoru : Jujutsu Kaisen",
+    year: 2020,
+    type: "TV",
+    rating: 9.8,
+    genres: ["Action", "Adventure", "college"],
+    cover: "file:///C:/Users/hp/Downloads/juju%20epis%202.jpg", // make sure this path works in your project
+    synopsis: "Satoru Gojo is not just a teacher at Tokyo Jujutsu High — he’s a living legend. With his snowy white hair, blindfolded eyes, and a devil-may-care grin, Gojo hides a power that even curses fear to whisper about.",
+    url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+  {
+    id: 2,
+    title: "Ryomen Sukuna : Jujustu kaisen",
+    year: 2020,
+    type: "TV",
+    rating: 9.3,
+    genres: ["Action", "Mystery", "School"],
+    cover: "",
+    synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+    url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+  {
+    id:3,
+    title:"Yuji Itadori : jujustu kaisen",
+    year:2000,
+    type: "TV",
+    rating:9,
+    genres:["action","Drama","college"],
+    cover:"",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:4,
+    title:"Megumi Fushiguro : jujustu kaisen",
+    year:2000,
+    type: "mobile",
+    rating:8.9,
+    genres:["action","supernatural","college"],
+    cover:"",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:5,
+    title:"Goku : Dragon ball super",
+    year:2000,
+    type: "mobile",
+    rating:9,
+    genres:["action","supernatural","college"],
+    cover:"",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:6,
+    title:"vegeta : Dragon ball super",
+    year:2000,
+    type: "mobile",
+    rating:8.8,
+    genres:["action","supernatural","college"],
+    cover:"",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:7,
+    title:"Beerus : Dragon ball super",
+    year:2000,
+    type: "mobile",
+    rating:8,
+    genres:["action","supernatural","college"],
+    cover:"",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:8,
+    title:"Whis : Dragon ball super",
+    year:2000,
+    type: "TV",
+    rating:8,
+    genres:["action","supernatural","college"],
+    cover:"file:///C:/Users/hp/Desktop/new%20website/poster/wp5343672-dbz-hd-desktop-wallpapers.jpg",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:9,
+    title:"Monkey D. Luffy : one piece",
+    year:2000,
+    type: "mobile",
+    rating:9,
+    genres:["action","supernatural","college"],
+    cover:"file:///C:/Users/hp/Desktop/new%20website/poster/wp2551882-wallpaper-one-piece.jpg",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+   {
+    id:10,
+    title:"captain levis : Attack on Titan",
+    year:2000,
+    type: "mobile",
+    rating:9,
+    genres:["action","supernatural","Mystery"],
+    cover:"file:///C:/Users/hp/Desktop/new%20website/poster/wp6800226-levi-desktop-wallpapers.jpg",
+     synopsis: "Jujutsu Kaisen isn’t just about exorcising curses — it's about fighting for meaning, friendship, and survival in a brutal, cursed world.",
+  url: "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+  },
+
+ { id: 11,
+  title: "Eren Yeager : Shingeki no Kyojin",
+  year: 2020,
+  type: "TV",
+  rating: 9.2,
+  genres: ["Action", "Drama", "Mystery"],
+  cover: "file:///C:/Users/hp/Desktop/new%20website/poster/wp9036738-eren-yeager-2021-wallpapers.jpg",
+  synopsis: "The truth behind the Titans is revealed, and the final battle for humanity begins.",
+  url: "https://myanimelist.net/anime/40028/Shingeki_no_Kyojin__The_Final_Season"
+},
+{
+  id: 12,
+  title: "Rudeus Greyrat : Mushoku Tensei",
+  year: 2021,
+  type: "TV",
+  rating: 8.1,
+  genres: ["Action", "Horror", "Supernatural"],
+  cover: "file:///C:/Users/hp/Desktop/new%20website/poster/mushoku+tensei.jpg",
+  synopsis: "A former delinquent travels back in time to save his girlfriend and change the past.",
+  url: "https://myanimelist.net/anime/45576/Tokyo_Revengers"
+},
+{
+  id: 13,
+  title: "Denji(Chainsaw Man) : Chainsaw Man",
+  year: 2022,
+  type: "TV",
+  rating: 8.5,
+  genres: ["Action", "sports", "Supernatural"],
+  cover: "file:///C:/Users/hp/Desktop/new%20website/poster/wp12194532-makima-4k-wallpapers.jpg",
+  synopsis: "Denji merges with a devil to become Chainsaw Man, fighting other devils to survive.",
+  url: "https://myanimelist.net/anime/44511/Chainsaw_Man"
+},
+{
+  id: 14,
+  title: "Yoichi Isagi : Blue Lock",
+  year: 2022,
+  type: "TV",
+  rating: 8.2,
+  genres: ["Sports", "Psychological", "Drama"],
+  cover: "file:///C:/Users/hp/Desktop/new%20website/poster/wp11696453-isagi-yoichi-wallpapers.jpg",
+  synopsis: "Japan’s egoistic soccer project pits the best strikers against each other for one goal: becoming #1.",
+  url: "https://myanimelist.net/anime/49596/Blue_Lock"
+},
+{
+  id: 15,
+  title: "Light Yagami : Death Note",
+  year: 2006,
+  type: "TV",
+  rating: 9.0,
+  genres: ["Mystery", "Psychological", "Supernatural"],
+  cover: "file:///C:/Users/hp/Desktop/new%20website/poster/pUTZ2kr-light-yagami-wallpaper.jpg",
+  synopsis: "A high school student discovers a notebook that lets him kill anyone by writing their name in it.",
+  url: "https://myanimelist.net/anime/1535/Death_Note"
+}
+
+    
+    ];
+
+    const ALL_GENRES = Array.from(new Set(ANIME.flatMap(a => a.genres))).sort();
+
+    const els = {
+      grid: document.getElementById('grid'),
+      empty: document.getElementById('empty'),
+      filters: document.getElementById('filters'),
+      q: document.getElementById('q'),
+      modal: document.getElementById('details'),
+      modalTitle: document.getElementById('modalTitle'),
+      modalCover: document.getElementById('modalCover'),
+      modalSynopsis: document.getElementById('modalSynopsis'),
+      modalYear: document.getElementById('modalYear'),
+      modalRating: document.getElementById('modalRating'),
+      modalType: document.getElementById('modalType'),
+      modalGenres: document.getElementById('modalGenres'),
+      modalLink: document.getElementById('modalLink'),
+    };
+
+    let state = { q: '', genre: null };
+
+    function renderFilters() {
+      els.filters.innerHTML = '';
+      const all = document.createElement('button');
+      all.className = 'chip' + (state.genre === null ? ' active' : '');
+      all.textContent = 'All';
+      all.onclick = () => { state.genre = null; update(); };
+      els.filters.appendChild(all);
+
+      ALL_GENRES.forEach(g => {
+        const b = document.createElement('button');
+        b.className = 'chip' + (state.genre === g ? ' active' : '');
+        b.textContent = g;
+        b.onclick = () => { state.genre = (state.genre === g ? null : g); update(); };
+        els.filters.appendChild(b);
+      });
+    }
+
+    function cardTemplate(a) {
+      return `
+      <article class="card" role="article" aria-labelledby="title-${a.id}">
+        <div class="rating" title="User score">⭐ ${a.rating}</div>
+        <img class="cover" src="${a.cover}" alt="${a.title} poster" loading="lazy" />
+        <div class="meta">
+          <h3 class="title" id="title-${a.id}">${a.title}</h3>
+          <div class="tags">
+            <span class="tag">${a.type}</span>
+            <span class="tag">${a.year}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn" onclick='openDetails(${JSON.stringify(JSON.stringify(a))})'>Details</button>
+          <a class="btn primary" href="${a.url}" target="_blank" rel="noreferrer noopener">MAL ↗</a>
+        </div>
+      </article>`;
+    }
+
+    function openDetails(json) {
+      const a = JSON.parse(json);
+      els.modalTitle.textContent = a.title;
+      els.modalCover.src = a.cover;
+      els.modalSynopsis.textContent = a.synopsis;
+      els.modalYear.textContent = a.year;
+   els.modalRating.textContent = `⭐ ${a.rating}`;
+      els.modalType.textContent = a.type;
+      els.modalGenres.innerHTML = a.genres.map(g => `<span class="tag">${g}</span>`).join('');
+      els.modalLink.href = a.url;
+      els.modal.showModal();
+    }
+    function closeDetails(){ els.modal.close(); }
+    window.closeDetails = closeDetails;
+
+    function update() {
+      const q = state.q.toLowerCase();
+      const filtered = ANIME.filter(a => {
+        const matchQ = !q || a.title.toLowerCase().includes(q) || a.synopsis.toLowerCase().includes(q);
+        const matchG = state.genre ? a.genres.includes(state.genre) : true;
+        return matchQ && matchG;
+      });
+      els.grid.innerHTML = filtered.map(cardTemplate).join('');
+      els.empty.hidden = filtered.length !== 0;
+      renderFilters();
+    }
+
+    function search(){ state.q = els.q.value.trim(); update(); }
+    document.getElementById('resetBtn').onclick = () => { state = { q: '', genre: null }; els.q.value = ''; update(); };
+
+    // Theme toggle
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.onclick = () => {
+      const light = document.body.classList.toggle('light');
+      themeBtn.setAttribute('aria-pressed', String(light));
+    };
+
+    // Init
+    update();
+
+
+    async function fetchTopAnime(){
+      const res = await fetch('https://api.jikan.moe/v4/top/anime');
+      const data = await res.json();
+      console.log('Jikan sample:', data);
+    }
+    fetchTopAnime();
+   
+    
+  </script>
+  <footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>Your website</h3>
+      <p>We provide quality services that help businesses grow and succeed in the digital world.</p>
+    </div>
+
+    <div class="footer-section links">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="C:\Users\hp\Desktop\new website\about.html">About Us</a></li>
+        <li><a href="C:\Users\hp\Desktop\new website\service.html">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="C:\Users\hp\Desktop\new website\contact.html" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section contact">
+      <h4>Contact Us</h4>
+      <p>Email: kartikprajapat820@gmail.com</p>
+      <p>Phone: +917610687434</p>
+      <div class="social-icons">
+       <!-- Facebook Logo -->
+ <a href="https://www.facebook.com/YourPage" target="_blank">facebook
+  <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" width="32" height="32">
+</a>
+
+
+<!-- Twitter Logo -->
+<a href="https://twitter.com/YourUsername" target="_blank">Twitters
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" width="32" height="32">
+</a>
+<a href="https://www.linkedin.com/in/YourUsername" target="_blank">Linkdin
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width="32" height="32">
+</a>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>©2025 Your Website. All rights reserved.</p>
+  </div>
+
+<h1 class="multi-color-thankyou">
+  <span>T</span><span>h</span><span>a</span><span>n</span><span>k</span> 
+  <span>Y</span><span>o</span><span>u</span>!
+  <span>For Watching</span>
+  <p>We appreciate your time and interest. Hope to see you again soon! 😊</p>
+</h1>
+</footer>
+
+</body>
+</html>

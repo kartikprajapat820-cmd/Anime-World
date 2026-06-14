@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | New Anime Web</title>
+  <style>
+    body {
+      background-color: #0b0b12;
+      color: #e7e7f2;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 60px auto;
+      background: #15152a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,.3);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .form-container {
+      flex: 1 1 450px;
+    }
+
+    .info-container {
+      flex: 1 1 300px;
+      background: #121222;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    h2 { text-align: center; color: #8aa8ff; }
+
+    label { font-weight: 600; display: block; margin-top: 20px; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #121222;
+      color: white;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      background: linear-gradient(135deg, #8aa8ff, #ff89c6);
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.9; }
+
+    #successMessage {
+      color: #8aa8ff;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #messages {
+      margin-top: 30px;
+    }
+
+    .msg-box {
+      border-bottom: 1px solid #333;
+      padding: 10px 0;
+    }
+    .msg-box p { margin: 5px 0; }
+
+    .clear-btn {
+      background: #ff5555;
+      margin-top: 10px;
+    }
+
+    /* Info section styling */
+    .info-container h3 { margin-top: 0; color: #ff89c6; }
+    .info-container p, .info-container a {
+      margin: 10px 0;
+      color: #e7e7f2;
+      text-decoration: none;
+    }
+    .info-container a:hover { color: #8aa8ff; }
+  </style>
+</head>
+<body>
+
+<main>
+  <!-- Form section -->
+  <div class="form-container">
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" rows="5" required></textarea>
+
+      <button type="submit">Submit</button>
+      <p id="successMessage"></p>
+    </form>
+
+    <button class="clear-btn" id="clearBtn">🗑 Clear All Messages</button>
+
+    <section id="messages"></section>
+  </div>
+
+  <!-- Info section -->
+  <div class="info-container">
+    <h3>Contact Information</h3>
+    <p><strong>Email:</strong> contact@newanimeweb.com</p>
+    <p><strong>Phone:</strong> +91 98765 43210</p>
+    <p><strong>Address:</strong> 123 Anime Street, Tokyo, Japan</p>
+    <p><strong>Working Hours:</strong> Mon-Fri, 9:00 AM - 6:00 PM</p>
+
+    <h3>Follow Us</h3>
+    <p><a href="#">🐦 Twitter</a></p>
+    <p><a href="#">📘 Facebook</a></p>
+    <p><a href="#">📸 Instagram</a></p>
+    <p><a href="#">💬 Discord</a></p>
+  </div>
+</main>
+
+<script>
+const form = document.getElementById("contactForm");
+const successMessage = document.getElementById("successMessage");
+const messagesSection = document.getElementById("messages");
+const clearBtn = document.getElementById("clearBtn");
+
+// Display saved messages
+function showMessages() {
+  const all = JSON.parse(localStorage.getItem("messages") || "[]");
+  if(all.length === 0) {
+    messagesSection.innerHTML = "<p style='text-align:center;color:#888;'>No messages yet.</p>";
+    return;
+  }
+  messagesSection.innerHTML = all.map(m => `
+    <div class="msg-box">
+      <strong>${m.name}</strong> (${m.email})<br>
+      <em>${m.time}</em>
+      <p>${m.message}</p>
+    </div>
+  `).join("");
+}
+
+// Form submission
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const data = { name, email, message, time: new Date().toLocaleString() };
+  
+  const all = JSON.parse(localStorage.getItem("messages") || "[]");
+  all.push(data);
+  localStorage.setItem("messages", JSON.stringify(all));
+
+  successMessage.textContent = "✅ Message submitted successfully!";
+  form.reset();
+  showMessages();
+});
+
+// Clear all messages
+clearBtn.addEventListener("click", () => {
+  if(confirm("Are you sure you want to delete all messages?")) {
+    localStorage.removeItem("messages");
+    showMessages();
+  }
+});
+
+// Initial display
+showMessages();
+</script>
+
+</body>
+</html>
