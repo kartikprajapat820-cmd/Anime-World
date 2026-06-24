@@ -314,6 +314,145 @@
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
+/* --- Yeh style tag ke bilkul end me jayega --- */
+.logo span:first-child {
+  background: var(--brand-gradient);
+  background-size: 200% auto;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s linear infinite;
+}
+
+.grid .card {
+  animation: cardAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.card {
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s;
+}
+.card:hover { 
+  transform: translateY(-8px) scale(1.02); 
+  border-color: var(--brand-2);
+  box-shadow: 0 30px 60px rgba(255, 70, 159, 0.15), 0 10px 30px rgba(0,0,0,0.4);
+}
+.cover { 
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover .cover { 
+  transform: scale(1.08); 
+}
+.multi-color-thankyou span {
+  display: inline-block;
+  animation: waveLetter 2s infinite ease-in-out;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes kineticText {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+@keyframes waveLetter {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px) scale(1.1); filter: drop-shadow(0 10px 15px currentColor); }
+}
+@keyframes cardAppear {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   DYNAMIC PARTICLES MOVING ANIMATION
+   ========================================================================== */
+
+/* Particle Container Layer */
+#particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Isse particles cards aur text ke peeche rahenge */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Individual Particle Styling */
+.particle {
+  position: absolute;
+  background: linear-gradient(135deg, var(--brand, #6366f1), var(--brand-2, #ff469f));
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatParticle linear infinite;
+}
+
+/* Smooth Floating Keyframes */
+@keyframes floatParticle {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6; /* Thoda upar aate hi visible ho jayenge */
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-5vh) translateX(100px) scale(1);
+    opacity: 0;
+  }
+}
+/* ==========================================================================
+   SMOOTH SLIDING WELCOME BANNER
+   ========================================================================== */
+
+/* Outer container layer */
+.sliding-banner-container {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(255, 70, 159, 0.1));
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 0;
+  margin-top: 10px;
+}
+
+/* Moving wrapper block */
+.sliding-text-track {
+  display: flex;
+  white-space: nowrap;
+  gap: 50px; /* Text items ke beech ki dori */
+  animation: slideTextInfinite 5s linear infinite;
+  width: max-content;
+}
+
+/* Inner Text block formatting */
+.sliding-text-item {
+  font-family: 'Bangers', system-ui;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+}
+
+/* Neon color shift for highlights */
+.sliding-text-item span {
+  color: var(--brand-2, #ff469f);
+  text-shadow: 0 0 8px rgba(255, 70, 159, 0.6);
+}
+
+/* Infinite Sliding Keyframes */
+@keyframes slideTextInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%); /* Grid alignment seamless shifts */
+  }
+}
   </style>
 </head>
 <body>
@@ -333,6 +472,19 @@
       </div>
     </div>
   </header>
+  <div class="sliding-banner-container">
+  <div class="sliding-text-track">
+    <div class="sliding-text-item">✨ Welcome to <span>Anime World</span></div>
+    <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+    <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+    <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+     <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+      <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+       <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+        <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+         <div class="sliding-text-item">✨ Welcome to <span>Anime World</span> </div>
+  </div>
+</div>
 
    <main class="container">
     <section class="hero" aria-labelledby="headline">
@@ -360,7 +512,7 @@
   <span class="close-btn" onclick="closeNotification()">×</span>
 </div>
 
-
+<div id="particle-container"></div>
   <!-- Details Modal -->
   <dialog id="details">
     <div class="modal">
@@ -606,24 +758,64 @@
       });
     }
 
-    function cardTemplate(a) {
-      return `
-      <article class="card" role="article" aria-labelledby="title-${a.id}">
-        <div class="rating" title="User score">⭐ ${a.rating}</div>
-        <img class="cover" src="${a.cover}" alt="${a.title} poster" loading="lazy" />
-        <div class="meta">
-          <h3 class="title" id="title-${a.id}">${a.title}</h3>
-          <div class="tags">
-            <span class="tag">${a.type}</span>
-            <span class="tag">${a.year}</span>
-          </div>
-        </div>
-        <div class="card-actions">
-          <button class="btn" onclick='openDetails(${JSON.stringify(JSON.stringify(a))})'>Details</button>
-          <a class="btn primary" href="${a.url}" target="_blank" rel="noreferrer noopener">MAL ↗</a>
-        </div>
-      </article>`;
+ // Isko purane cardTemplate se replace kar dein
+function cardTemplate(a, index) {
+  return `
+  <article class="card" role="article" style="animation-delay: ${index * 0.05}s">
+    <div class="rating">⭐ ${a.rating}</div>
+    <div class="cover-wrapper">
+      <img class="cover" src="${a.cover}" alt="${a.title} image" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500'"/>
+    </div>
+    <div class="meta">
+      <h3 class="title" title="${a.title}">${a.title}</h3>
+      <div class="tags">
+        <span class="tag">${a.type}</span>
+        <span class="tag">${a.year}</span>
+      </div>
+    </div>
+    <div class="card-actions">
+      <button class="btn" onclick='openDetails(${JSON.stringify(a).replace(/'/g, "&apos;")})'>Details</button>
+      <a class="btn primary" href="${a.url}" target="_blank" rel="noreferrer noopener">MAL ↗</a>
+    </div>
+  </article>`;
+}
+// --- AUTO GENERATING FLOATING PARTICLES ENGINE ---
+function createParticles() {
+  const container = document.getElementById('particle-container');
+  if (!container) return;
+
+  const particleCount = 40; // Aap is number ko badha ya kam kar sakte hain
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+
+    // Random Size, Position aur Speed defaults generate karne ke liye
+    const size = Math.random() * 6 + 2; // 2px se 8px ke beech size
+    const leftPos = Math.random() * 100; // Left se random position
+    const duration = Math.random() * 12 + 8; // 8s se 20s ke beech ki speed
+    const delay = Math.random() * 10; // Random entry time
+
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${leftPos}%`;
+    particle.style.animationDuration = `${duration}s`;
+    particle.style.animationDelay = `-${delay}s`; // Negative delay se screen load hote hi particles dikhne lagenge
+
+    // Kuch particles ko glow effect dene ke liye
+    if (Math.random() > 0.5) {
+      particle.style.boxShadow = '0 0 8px var(--brand-2)';
+    } else {
+      particle.style.boxShadow = '0 0 8px var(--brand)';
     }
+
+    container.appendChild(particle);
+  }
+}
+
+// Website load hote hi particle system activate ho jaye
+window.addEventListener('DOMContentLoaded', createParticles);
+
 
     function openDetails(json) {
       const a = JSON.parse(json);
@@ -647,7 +839,8 @@
         const matchG = state.genre ? a.genres.includes(state.genre) : true;
         return matchQ && matchG;
       });
-      els.grid.innerHTML = filtered.map(cardTemplate).join('');
+      // update() function ke andar is line ko update karein:
+els.grid.innerHTML = filtered.map((item, idx) => cardTemplate(item, idx)).join('');
       els.empty.hidden = filtered.length !== 0;
       renderFilters();
     }
